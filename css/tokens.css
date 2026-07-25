@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Design tokens — Zámečnictví MB s.r.o.
+   Barvy měřeny z reálného loga firmy (navy #1C4871, šedá #9B9D9F).
+   Jeden akcent (žlutá), jeden radius systém (0 — ostré hrany), jedno téma.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --color-navy: #1c4871;
+  --color-navy-dark: #123350;
+  --color-navy-tint: #eaf0f5;
+
+  --color-grey: #8b939b;
+  --color-grey-light: #c9ced3;
+  --color-grey-dark: #5b636b;
+
+  --color-yellow: #f2c94c;
+  --color-yellow-dark: #d6ae33;
+
+  --color-white: #ffffff;
+  --color-offwhite: #fafafa;
+  --color-ink: #1c2530;
+  --color-border: #dde1e5;
+
+  --color-success: #2e7d46;
+  --color-success-bg: #eaf6ee;
+  --color-error: #c1352b;
+  --color-error-bg: #fceceb;
+
+  /* Shape — jeden radius systém napříč celým webem */
+  --radius: 0px;
+
+  /* Typografie */
+  --font-heading: "Space Grotesk", -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --text-h1: clamp(2rem, 4vw + 1rem, 3rem);
+  --text-h2: clamp(1.75rem, 2.5vw + 1rem, 2.25rem);
+  --text-h3: 1.5rem;
+  --text-body-lg: 1.125rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-label: 0.8125rem;
+
+  /* Rozestupy */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* Layout */
+  --container-max: 1240px;
+  --container-pad: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Stíny — jemné, laděné do navy, nikdy čistě černé */
+  --shadow-sm: 0 1px 2px rgba(28, 72, 113, 0.08);
+  --shadow-md: 0 8px 24px rgba(28, 72, 113, 0.12);
+  --shadow-header: 0 2px 12px rgba(28, 72, 113, 0.08);
+
+  /* Motion — restrained, jeden rytmus */
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-base: 420ms;
+}
