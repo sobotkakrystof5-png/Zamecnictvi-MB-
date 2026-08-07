@@ -53,9 +53,46 @@
 
   grid.appendChild(frag);
 
-  // ---- Filtr kategorií ----
+  // ---- Filtr kategorií + sbalení na výchozí počet fotek ----
+  var COLLAPSE_LIMIT = 12;
   var filterButtons = document.querySelectorAll(".gallery__filter");
   var galleryItems = grid.querySelectorAll(".gallery__item");
+  var toggleBtn = document.getElementById("gallery-toggle");
+  var toggleWrap = toggleBtn ? toggleBtn.closest(".gallery__toggle-wrap") : null;
+  var toggleLabel = toggleBtn ? toggleBtn.querySelector(".gallery__toggle-label") : null;
+  var expanded = false;
+
+  function currentFilter() {
+    var activeBtn = document.querySelector(".gallery__filter.is-active");
+    return activeBtn ? activeBtn.getAttribute("data-filter") : "vse";
+  }
+
+  function updateVisibility() {
+    var filter = currentFilter();
+    var visibleCount = 0;
+
+    galleryItems.forEach(function (item) {
+      var matches = filter === "vse" || item.getAttribute("data-category") === filter;
+      item.classList.toggle("is-hidden", !matches);
+
+      if (matches) {
+        visibleCount++;
+        item.classList.toggle("is-collapsed", !expanded && visibleCount > COLLAPSE_LIMIT);
+      } else {
+        item.classList.remove("is-collapsed");
+      }
+    });
+
+    if (toggleWrap) {
+      var needsToggle = visibleCount > COLLAPSE_LIMIT;
+      toggleWrap.classList.toggle("is-hidden", !needsToggle);
+      toggleBtn.setAttribute("aria-expanded", String(expanded));
+      toggleBtn.classList.toggle("is-expanded", expanded);
+      if (toggleLabel) {
+        toggleLabel.textContent = expanded ? "Zobrazit méně" : "Zobrazit celou galerii";
+      }
+    }
+  }
 
   filterButtons.forEach(function (btn) {
     btn.addEventListener("click", function () {
@@ -63,14 +100,22 @@
         b.classList.remove("is-active");
       });
       btn.classList.add("is-active");
-
-      var filter = btn.getAttribute("data-filter");
-      galleryItems.forEach(function (item) {
-        var show = filter === "vse" || item.getAttribute("data-category") === filter;
-        item.classList.toggle("is-hidden", !show);
-      });
+      expanded = false;
+      updateVisibility();
     });
   });
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", function () {
+      expanded = !expanded;
+      updateVisibility();
+      if (!expanded) {
+        document.getElementById("galerie").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  }
+
+  updateVisibility();
 
   // ---- Lightbox (native <dialog>) ----
   var lightbox = document.getElementById("lightbox");

@@ -32,14 +32,13 @@ css/
 js/
   nav.js                 — sticky header, scrollspy, hamburger menu
   reveal.js              — scroll-reveal (respektuje prefers-reduced-motion)
-  gallery.js             — generování 20 galerijních dlaždic, filtr, lightbox
+  gallery.js             — generování 20 galerijních dlaždic, filtr, sbalení nad 12 fotek, lightbox
   contact-form.js        — validace a odeslání formuláře přes fetch
 api/
   contact.js             — Vercel serverless funkce, volá Resend REST API
 images/
   logo/                  — zpracované logo (transparentní PNG)
   hero/, about/          — 1 placeholder fotka každá
-  realizace/             — 6–8 placeholder fotek (připraveno v HTML jako 8)
   galerie/{4 kategorie}/ — složky pro budoucích ~20 fotografií
 fonts/
   space-grotesk/, inter/ — self-hosted woff2 (latin + latin-ext, česká diakritika)
@@ -55,10 +54,9 @@ vercel.json              — region funkce (fra1), cache hlavičky pro fonty/obr
 2. **Hero** (`#hero`) — asymetrický layout, CTA, číselný pruh (25+ let / 1999)
 3. **O nás** (`#o-nas`) — text + placeholder fotka, 4 hodnotové bloky
 4. **Služby** (`#sluzby`) — asymetrický bento grid, 5 nabídek
-5. **Realizace** (`#realizace`) — grid 8 placeholder karet 4:3
-6. **Galerie** (`#galerie`) — masonry, filtr kategorií, lightbox (20 placeholderů)
-7. **Kontakt** (`#kontakt`) — kontaktní údaje + mapa + formulář
-8. **Footer** — logo, rychlé odkazy, kontakt
+5. **Galerie** (`#galerie`) — masonry, filtr kategorií, lightbox, sbalení nad 12 fotek (20 placeholderů)
+6. **Kontakt** (`#kontakt`) — kontaktní údaje + mapa + formulář
+7. **Footer** — logo, rychlé odkazy, kontakt
 
 ## Nahrazení placeholder fotek reálnými
 

@@ -254,38 +254,6 @@
   color: var(--color-grey-dark);
 }
 
-/* ---- Realizace — jednotný grid (jediná sekce, kde je to žádoucí) ---- */
-.portfolio__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-lg);
-}
-
-.portfolio-card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.portfolio-card__frame {
-  transition: transform var(--duration-base) var(--ease-standard);
-}
-
-.portfolio-card:hover .portfolio-card__frame {
-  transform: translateY(-4px);
-}
-
-.portfolio-card__title {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  color: var(--color-navy);
-}
-
-.portfolio-card__text {
-  font-size: var(--text-small);
-  color: var(--color-grey-dark);
-}
-
 /* ---- Galerie — masonry + filtr ---- */
 .gallery__filters {
   display: flex;
@@ -354,7 +322,8 @@
   box-shadow: 0 0 0 2px var(--color-navy);
 }
 
-.gallery__item.is-hidden {
+.gallery__item.is-hidden,
+.gallery__item.is-collapsed {
   display: none;
 }
 
@@ -362,6 +331,22 @@
   font-family: var(--font-heading);
   font-size: 1.5rem;
   color: var(--color-grey-light);
+}
+
+.gallery__toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-lg);
+}
+
+.gallery__toggle-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.gallery__toggle.is-expanded .gallery__toggle-icon {
+  transform: rotate(180deg);
 }
 
 /* ---- Lightbox ---- */

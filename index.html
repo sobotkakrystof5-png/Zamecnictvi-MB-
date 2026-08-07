@@ -102,6 +102,9 @@
   <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
     <path d="M5 5l14 14M19 5L5 19"/>
   </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 9l6 6 6-6"/>
+  </symbol>
   <symbol id="motif-dim-rule" viewBox="0 0 124 14" fill="none">
     <line x1="1" y1="7" x2="123" y2="7" stroke="currentColor" stroke-width="1.4"/>
     <line x1="1" y1="2.5" x2="1" y2="11.5" stroke="currentColor" stroke-width="1.4"/>
@@ -121,7 +124,6 @@
       <ul class="header__nav-list">
         <li><a class="header__nav-link" data-nav-link href="#o-nas">O nás</a></li>
         <li><a class="header__nav-link" data-nav-link href="#sluzby">Služby</a></li>
-        <li><a class="header__nav-link" data-nav-link href="#realizace">Realizace</a></li>
         <li><a class="header__nav-link" data-nav-link href="#galerie">Galerie</a></li>
         <li><a class="header__nav-link" data-nav-link href="#kontakt">Kontakt</a></li>
       </ul>
@@ -138,7 +140,6 @@
   <ul class="mobile-nav__list">
     <li><a class="mobile-nav__link" data-nav-link href="#o-nas">O nás</a></li>
     <li><a class="mobile-nav__link" data-nav-link href="#sluzby">Služby</a></li>
-    <li><a class="mobile-nav__link" data-nav-link href="#realizace">Realizace</a></li>
     <li><a class="mobile-nav__link" data-nav-link href="#galerie">Galerie</a></li>
     <li><a class="mobile-nav__link" data-nav-link href="#kontakt">Kontakt</a></li>
   </ul>
@@ -164,7 +165,7 @@
       <p class="hero__sub">Atypické ocelové konstrukce, prototypové díly a kompletní servis od návrhu po montáž.</p>
       <div class="hero__ctas">
         <a class="btn btn--primary" href="#kontakt">Nezávazná poptávka</a>
-        <a class="btn btn--secondary" href="#realizace">Prohlédnout realizace</a>
+        <a class="btn btn--secondary" href="#galerie">Prohlédnout realizace</a>
       </div>
     </div>
 
@@ -200,7 +201,8 @@
       <svg class="dim-rule"><use href="#motif-dim-rule"/></svg>
       <p>Firma Zámečnictví MB s.r.o. působí na trhu od roku 1999. Od začátku klademe důraz na kvalitu dodávaných výrobků a služeb — každý kus zhotovujeme typově podle osvědčených řešení, nebo atypicky podle představ zákazníka či architektonického návrhu.</p>
       <p>Nabízíme kompletní servis: od návrhu a zaměření, přes výběr materiálu a povrchové úpravy, až po zabudování, montáž a finální povrchovou úpravu. Termíny se určují individuálně podle náročnosti zakázky — a jsou vždy dodržovány.</p>
-      <p>Specializujeme se na kusovou atypickou výrobu v menších sériích a na výrobu prototypových dílů pro automobilový průmysl a zahradní techniku. Při výrobě kombinujeme ocel s dřevem, sklem, plastem i lehkými kovy, vždy s důrazem na přesnost a vysoce estetický vzhled výsledného díla.</p>
+      <p>Specializujeme se na výrobu ocelových konstrukcí, vrat, plotů, mříží, schodů a zábradlí, a to jak v interiéru, tak i v exteriéru. Dále pak na kusovou atypickou výrobu v menších sériích a výrobu prototypových dílů např. pro automobilový průmysl a zahradní techniku.</p>
+      <p>Pracujeme v kombinaci s různými materiály, jako je dřevo, sklo, plast, lehké kovy apod.</p>
 
       <div class="about__values">
         <div class="value-block">
@@ -243,136 +245,35 @@
 
     <div class="services__grid">
       <article class="service-tile service-tile--anchor" data-reveal>
-        <svg class="service-tile__icon"><use href="#icon-hex"/></svg>
-        <h3 class="service-tile__title">Typová a atypická výroba</h3>
-        <p class="service-tile__text">Kusová výroba v menších sériích i zakázky zhotovené přesně podle představ zákazníka nebo architektonického návrhu.</p>
+        <svg class="service-tile__icon"><use href="#icon-gate"/></svg>
+        <h3 class="service-tile__title">Výroba ocelových konstrukcí</h3>
+        <p class="service-tile__text">Vrata, ploty, mříže, schody, zábradlí a další — typová i atypická výroba podle představ zákazníka nebo architektonického návrhu.</p>
       </article>
 
       <article class="service-tile" data-reveal>
+        <svg class="service-tile__icon"><use href="#icon-clipboard"/></svg>
+        <h3 class="service-tile__title">Návrh řešení</h3>
+        <p class="service-tile__text">Návrh, zaměření, výběr materiálu, výroba, povrchová úprava i montáž — vše pod jednou střechou.</p>
+      </article>
+
+      <article class="service-tile" data-reveal>
+        <svg class="service-tile__icon"><use href="#icon-hex"/></svg>
+        <h3 class="service-tile__title">Montáž</h3>
+        <p class="service-tile__text">Zajistíme dopravu a montáž na místo určení.</p>
+      </article>
+
+      <article class="service-tile service-tile--tint" data-reveal>
         <svg class="service-tile__icon"><use href="#icon-cube"/></svg>
         <h3 class="service-tile__title">Prototypové díly</h3>
         <p class="service-tile__text">Výroba prototypových dílů pro automobilový průmysl a zahradní techniku.</p>
       </article>
 
-      <article class="service-tile" data-reveal>
-        <svg class="service-tile__icon"><use href="#icon-gate"/></svg>
-        <h3 class="service-tile__title">Ocelové konstrukce</h3>
-        <p class="service-tile__text">Vrata, ploty, mříže, schody a zábradlí — v interiéru i exteriéru.</p>
-      </article>
-
-      <article class="service-tile service-tile--tint" data-reveal>
-        <svg class="service-tile__icon"><use href="#icon-layers"/></svg>
-        <h3 class="service-tile__title">Kombinované materiály</h3>
-        <p class="service-tile__text">Ocel v kombinaci se dřevem, sklem, plastem i lehkými kovy.</p>
-      </article>
-
       <article class="service-tile service-tile--wide" data-reveal>
-        <svg class="service-tile__icon"><use href="#icon-clipboard"/></svg>
+        <svg class="service-tile__icon"><use href="#icon-layers"/></svg>
         <div class="service-tile__body">
-          <h3 class="service-tile__title">Kompletní servis</h3>
-          <p class="service-tile__text">Návrh, zaměření, výběr materiálu, povrchová úprava, montáž i finální povrchová úprava — vše pod jednou střechou.</p>
+          <h3 class="service-tile__title">Kombinované materiály</h3>
+          <p class="service-tile__text">Ocel v kombinaci se dřevem, sklem, plastem i lehkými kovy.</p>
         </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================== REALIZACE ============================== -->
-<section class="section" id="realizace">
-  <div class="container">
-    <div class="section__head">
-      <h2>Realizace</h2>
-      <svg class="dim-rule"><use href="#motif-dim-rule"/></svg>
-      <p>Výběr z našich zakázek — fotografie budou doplněny po odsouhlasení designu.</p>
-    </div>
-
-    <div class="portfolio__grid">
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
-      </article>
-
-      <article class="portfolio-card">
-        <figure class="photo-frame portfolio-card__frame reg-frame reg-frame--hover" style="--ar:4/3">
-          <div class="photo-frame__inner">
-            <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-            <p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>
-          </div>
-        </figure>
-        <p class="portfolio-card__title">[NÁZEV REALIZACE — typ, materiál, rok]</p>
-        <p class="portfolio-card__text">Krátký popis zakázky bude doplněn.</p>
       </article>
     </div>
   </div>
@@ -396,6 +297,13 @@
 
     <div class="gallery__grid" id="gallery-grid">
       <!-- 20 očíslovaných placeholderů, rozdělených do 4 kategorií, smíšené poměry stran pro masonry rytmus -->
+    </div>
+
+    <div class="gallery__toggle-wrap">
+      <button type="button" class="btn btn--secondary gallery__toggle" id="gallery-toggle" aria-expanded="false" aria-controls="gallery-grid">
+        <span class="gallery__toggle-label">Zobrazit celou galerii</span>
+        <svg class="gallery__toggle-icon"><use href="#icon-chevron-down"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -475,21 +383,9 @@
         </div>
       </div>
 
-      <div class="contact-form__row contact-form__row--split">
-        <div class="form-field">
-          <label for="cf-phone">Telefon <span class="form-hint">(nepovinné)</span></label>
-          <input type="tel" id="cf-phone" name="phone" autocomplete="tel" />
-        </div>
-        <div class="form-field">
-          <label for="cf-subject">Typ poptávky *</label>
-          <select id="cf-subject" name="subject" required>
-            <option value="" selected disabled>Vyberte typ poptávky</option>
-            <option value="poptavka">Poptávka zakázky</option>
-            <option value="dotaz">Obecný dotaz</option>
-            <option value="servis">Servis / reklamace</option>
-            <option value="jine">Jiné</option>
-          </select>
-        </div>
+      <div class="form-field">
+        <label for="cf-phone">Telefon <span class="form-hint">(nepovinné)</span></label>
+        <input type="tel" id="cf-phone" name="phone" autocomplete="tel" />
       </div>
 
       <div class="form-field">
@@ -534,7 +430,6 @@
       <ul class="footer__list">
         <li><a href="#o-nas">O nás</a></li>
         <li><a href="#sluzby">Služby</a></li>
-        <li><a href="#realizace">Realizace</a></li>
         <li><a href="#galerie">Galerie</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
       </ul>
