@@ -11,7 +11,6 @@
     name: document.getElementById("cf-name"),
     email: document.getElementById("cf-email"),
     phone: document.getElementById("cf-phone"),
-    subject: document.getElementById("cf-subject"),
     message: document.getElementById("cf-message"),
   };
 
@@ -36,9 +35,6 @@
     var messageValid = fields.message.value.trim().length >= 10;
     setFieldError(fields.message, !messageValid);
     valid = valid && messageValid;
-
-    var subjectValid = Boolean(fields.subject.value);
-    valid = valid && subjectValid;
 
     var gdprValid = form.gdprConsent.checked;
     valid = valid && gdprValid;
@@ -76,7 +72,6 @@
       name: fields.name.value.trim(),
       email: fields.email.value.trim(),
       phone: fields.phone.value.trim(),
-      subject: fields.subject.value,
       message: fields.message.value.trim(),
       gdprConsent: form.gdprConsent.checked,
       website: form.website.value, // honeypot — u reálného uživatele vždy prázdné

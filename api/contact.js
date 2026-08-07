@@ -2,13 +2,6 @@
 // Přijímá poptávku z kontaktního formuláře a odešle ji přes Resend REST API.
 // Bez npm balíčku "resend" — jen přímé volání fetch, žádné externí závislosti.
 
-const SUBJECT_LABELS = {
-  poptavka: "Poptávka zakázky",
-  dotaz: "Obecný dotaz",
-  servis: "Servis / reklamace",
-  jine: "Jiné",
-};
-
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Jednoduchý in-memory rate limiter (best-effort — serverless instance není sdílená napříč regiony/studenty).
@@ -38,15 +31,12 @@ function validate(body) {
 
   const phone = typeof body.phone === "string" ? body.phone.trim().slice(0, 30) : "";
 
-  const subject = typeof body.subject === "string" ? body.subject : "";
-  if (!Object.prototype.hasOwnProperty.call(SUBJECT_LABELS, subject)) errors.subject = "invalid";
-
   const message = typeof body.message === "string" ? body.message.trim() : "";
   if (message.length < 10 || message.length > 5000) errors.message = "invalid";
 
   if (body.gdprConsent !== true) errors.gdprConsent = "invalid";
 
-  return { errors, values: { name, email, phone, subject, message } };
+  return { errors, values: { name, email, phone, message } };
 }
 
 function escapeHtml(str) {
@@ -108,16 +98,14 @@ module.exports = async function handler(req, res) {
     return;
   }
 
-  const subjectLabel = SUBJECT_LABELS[values.subject];
   const fromAddress = process.env.CONTACT_FROM_EMAIL || "Web Zámečnictví MB <onboarding@resend.dev>";
 
   const textBody = [
-    `Nová poptávka z webu Zámečnictví MB (${subjectLabel})`,
+    "Nová poptávka z webu Zámečnictví MB",
     "",
     `Jméno: ${values.name}`,
     `E-mail: ${values.email}`,
     values.phone ? `Telefon: ${values.phone}` : null,
-    `Typ poptávky: ${subjectLabel}`,
     "",
     "Zpráva:",
     values.message,
@@ -126,7 +114,7 @@ module.exports = async function handler(req, res) {
     .join("\n");
 
   const htmlBody = `
-    <h2>Nová poptávka z webu — ${escapeHtml(subjectLabel)}</h2>
+    <h2>Nová poptávka z webu</h2>
     <p><strong>Jméno:</strong> ${escapeHtml(values.name)}</p>
     <p><strong>E-mail:</strong> ${escapeHtml(values.email)}</p>
     ${values.phone ? `<p><strong>Telefon:</strong> ${escapeHtml(values.phone)}</p>` : ""}
@@ -145,7 +133,7 @@ module.exports = async function handler(req, res) {
         from: fromAddress,
         to: [toEmail],
         reply_to: values.email,
-        subject: `Poptávka z webu — ${subjectLabel}`,
+        subject: "Poptávka z webu — Zámečnictví MB",
         text: textBody,
         html: htmlBody,
       }),
