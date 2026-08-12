@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Layout — header, navigace, footer
+   Layout: header, navigace, footer
    ========================================================================== */
 
 /* ---- Header ---- */
@@ -40,7 +40,7 @@
   transition: filter var(--duration-fast) var(--ease-standard);
 }
 
-/* Mobilní overlay je na stejné navy ploše jako logo — invertovat, aby zůstalo čitelné */
+/* Mobilní overlay je na stejné navy ploše jako logo, proto ho invertujeme, aby zůstalo čitelné */
 .header.is-nav-open .header__logo img {
   filter: brightness(0) invert(1);
 }

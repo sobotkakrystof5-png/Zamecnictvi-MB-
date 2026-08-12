@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Komponenty — tlačítka, formulář, placeholder fotky, signature motiv
+   Komponenty: tlačítka, formulář, placeholder fotky, signature motiv
    ========================================================================== */
 
 /* ---- Tlačítka ---- */
@@ -240,7 +240,7 @@
   font-weight: 600;
 }
 
-/* honeypot — skryté vizuálně i pro AT, reálný uživatel se k němu nikdy nedostane */
+/* honeypot: skryté vizuálně i pro AT. Reálný uživatel se k němu nikdy nedostane. */
 .form-honeypot {
   position: absolute;
   left: -9999px;

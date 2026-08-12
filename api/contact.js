@@ -1,10 +1,10 @@
 // Vercel serverless function (Node.js runtime).
 // Přijímá poptávku z kontaktního formuláře a odešle ji přes Resend REST API.
-// Bez npm balíčku "resend" — jen přímé volání fetch, žádné externí závislosti.
+// Bez npm balíčku "resend", jen přímé volání fetch, žádné externí závislosti.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Jednoduchý in-memory rate limiter (best-effort — serverless instance není sdílená napříč regiony/studenty).
+// Jednoduchý in-memory rate limiter (best-effort: serverless instance není sdílená napříč regiony/studenty).
 const submissionsByIp = new Map();
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 5;
@@ -133,7 +133,7 @@ module.exports = async function handler(req, res) {
         from: fromAddress,
         to: [toEmail],
         reply_to: values.email,
-        subject: "Poptávka z webu — Zámečnictví MB",
+        subject: "Poptávka z webu – Zámečnictví MB",
         text: textBody,
         html: htmlBody,
       }),

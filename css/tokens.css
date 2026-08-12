@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Design tokens — Zámečnictví MB s.r.o.
+   Design tokens: Zámečnictví MB s.r.o.
    Barvy měřeny z reálného loga firmy (navy #1C4871, šedá #9B9D9F).
-   Jeden akcent (žlutá), jeden radius systém (0 — ostré hrany), jedno téma.
+   Jeden akcent (žlutá), jeden radius systém (0: ostré hrany), jedno téma.
    ========================================================================== */
 
 :root {
@@ -27,7 +27,7 @@
   --color-error: #c1352b;
   --color-error-bg: #fceceb;
 
-  /* Shape — jeden radius systém napříč celým webem */
+  /* Shape. Jeden radius systém napříč celým webem. */
   --radius: 0px;
 
   /* Typografie */
@@ -55,12 +55,12 @@
   --container-max: 1240px;
   --container-pad: clamp(1.25rem, 4vw, 2.5rem);
 
-  /* Stíny — jemné, laděné do navy, nikdy čistě černé */
+  /* Stíny, jemné, laděné do navy, nikdy čistě černé */
   --shadow-sm: 0 1px 2px rgba(28, 72, 113, 0.08);
   --shadow-md: 0 8px 24px rgba(28, 72, 113, 0.12);
   --shadow-header: 0 2px 12px rgba(28, 72, 113, 0.08);
 
-  /* Motion — restrained, jeden rytmus */
+  /* Motion. Restrained, jeden rytmus. */
   --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 180ms;
   --duration-base: 420ms;

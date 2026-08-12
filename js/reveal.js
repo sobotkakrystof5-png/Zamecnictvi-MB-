@@ -11,7 +11,7 @@
     return;
   }
 
-  // Staggered reveal pro dlaždice v bento gridu služeb — komunikuje hierarchii vstupu
+  // Staggered reveal pro dlaždice v bento gridu služeb: komunikuje hierarchii vstupu
   document.querySelectorAll(".services__grid .service-tile").forEach(function (tile, index) {
     tile.style.transitionDelay = index * 70 + "ms";
   });

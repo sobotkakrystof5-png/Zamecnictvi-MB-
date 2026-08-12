@@ -74,7 +74,7 @@
       phone: fields.phone.value.trim(),
       message: fields.message.value.trim(),
       gdprConsent: form.gdprConsent.checked,
-      website: form.website.value, // honeypot — u reálného uživatele vždy prázdné
+      website: form.website.value, // honeypot, u reálného uživatele vždy prázdné
     };
 
     form.classList.add("is-submitting");
@@ -105,7 +105,7 @@
       .catch(function () {
         showStatus(
           "error",
-          "Poptávku se nepodařilo odeslat — zkontrolujte připojení a zkuste to znovu, nebo nám zavolejte na 773 603 377."
+          "Poptávku se nepodařilo odeslat: zkontrolujte připojení a zkuste to znovu, nebo nám zavolejte na 773 603 377."
         );
       })
       .finally(function () {

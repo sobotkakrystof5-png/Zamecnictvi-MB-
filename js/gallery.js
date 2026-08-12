@@ -32,7 +32,7 @@
     button.setAttribute("data-category", item.category);
     button.setAttribute(
       "aria-label",
-      "Otevřít náhled — " + CATEGORIES[item.category] + ", fotografie " + item.number
+      "Otevřít náhled: " + CATEGORIES[item.category] + ", fotografie " + item.number
     );
 
     button.innerHTML =
@@ -44,7 +44,7 @@
       String(item.number).padStart(2, "0") +
       "</span>" +
       '<svg class="photo-frame__icon"><use href="#icon-camera"/></svg>' +
-      '<p class="photo-frame__label">FOTO — doplní se po odsouhlasení designu</p>' +
+      '<p class="photo-frame__label">FOTO: doplní se po odsouhlasení designu</p>' +
       "</div>" +
       "</figure>";
 
@@ -127,7 +127,7 @@
       item.addEventListener("click", function () {
         var category = item.getAttribute("data-category");
         var label = item.getAttribute("aria-label");
-        lightboxCaption.textContent = CATEGORIES[category] + " — " + label.split("fotografie ")[1];
+        lightboxCaption.textContent = CATEGORIES[category] + " – " + label.split("fotografie ")[1];
         lightbox.showModal();
       });
     });
@@ -136,7 +136,7 @@
       lightbox.close();
     });
 
-    // Klik přímo na <dialog> (mimo jeho potomky) zasáhne jen backdrop — zavřít.
+    // Klik přímo na <dialog> (mimo jeho potomky) zasáhne jen backdrop. Zavřít.
     lightbox.addEventListener("click", function (e) {
       if (e.target === lightbox) {
         lightbox.close();

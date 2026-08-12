@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Sekce — každá s vlastní kompoziční logikou (viz plán)
+   Sekce: každá s vlastní kompoziční logikou (viz plán)
    ========================================================================== */
 
 .section {
@@ -102,7 +102,7 @@
   color: var(--color-grey-light);
 }
 
-/* ---- O nás — zigzag (jediné použití tohoto layoutu) ---- */
+/* ---- O nás: zigzag (jediné použití tohoto layoutu) ---- */
 .about__grid {
   display: grid;
   gap: var(--space-xl);
@@ -151,7 +151,7 @@
   color: var(--color-grey-dark);
 }
 
-/* ---- Služby — asymetrický bento (3 dlaždice, žádná prázdná) ---- */
+/* ---- Služby – asymetrický bento (3 dlaždice, žádná prázdná) ---- */
 .services__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -219,7 +219,7 @@
   color: var(--color-grey-dark);
 }
 
-/* ---- Galerie — masonry + filtr ---- */
+/* ---- Galerie, masonry + filtr ---- */
 .gallery__filters {
   display: flex;
   flex-wrap: wrap;
@@ -357,7 +357,7 @@
   border-color: var(--color-navy);
 }
 
-/* ---- Kontakt — dva sloupce + formulář na celou šířku ---- */
+/* ---- Kontakt: dva sloupce + formulář na celou šířku ---- */
 .contact__top {
   display: grid;
   gap: var(--space-xl);
