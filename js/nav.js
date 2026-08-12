@@ -83,7 +83,7 @@
       spy.observe(section);
     });
 
-    // Nad první sledovanou sekcí (v hero) nemá být aktivní žádný odkaz —
+    // Nad první sledovanou sekcí (v hero) nemá být aktivní žádný odkaz.
     // IntersectionObserver výše řeší jen "vstup" do sekce, ne návrat nad ni.
     var firstSection = sections[0];
     function clearActiveAboveFirstSection() {
