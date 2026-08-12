@@ -151,7 +151,7 @@
   color: var(--color-grey-dark);
 }
 
-/* ---- Služby — asymetrický bento (5 dlaždic, žádná prázdná) ---- */
+/* ---- Služby — asymetrický bento (3 dlaždice, žádná prázdná) ---- */
 .services__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -178,24 +178,6 @@
     grid-column: 1 / 3;
     grid-row: span 2;
   }
-
-  .service-tile--wide {
-    grid-column: 1 / 5;
-  }
-}
-
-@media (min-width: 700px) and (max-width: 899px) {
-  .service-tile--03,
-  .service-tile--04 {
-    grid-column: span 2;
-  }
-}
-
-@media (min-width: 900px) {
-  .service-tile--03,
-  .service-tile--04 {
-    grid-column: span 1;
-  }
 }
 
 .service-tile--anchor {
@@ -214,23 +196,6 @@
 
 .service-tile--anchor .service-tile__icon {
   color: var(--color-yellow);
-}
-
-.service-tile--tint {
-  background: var(--color-navy-tint);
-}
-
-.service-tile--wide {
-  flex-direction: row;
-  align-items: center;
-  gap: var(--space-lg);
-  border-left: 3px solid var(--color-yellow);
-}
-
-.service-tile--wide .service-tile__body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
 }
 
 .service-tile__icon {
@@ -337,6 +302,10 @@
   display: flex;
   justify-content: center;
   margin-top: var(--space-lg);
+}
+
+.gallery__toggle-wrap.is-hidden {
+  display: none;
 }
 
 .gallery__toggle-icon {
