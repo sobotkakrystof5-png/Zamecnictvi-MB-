@@ -150,23 +150,17 @@
         kompletní servis od návrhu po montáž."
      ============================================================== -->
 <section class="hero" id="hero">
+  <figure class="hero__bg">
+    <img src="/images/galerie/schody-a-zabradli/20250710_081203.webp" alt="Ocelové zábradlí se zkříženou výplní u dřevěného schodiště – realizace Zámečnictví MB" width="1437" height="1920" loading="eager" fetchpriority="high" />
+  </figure>
   <div class="container hero__inner">
     <div class="hero__content">
       <h1 class="hero__headline">Přesná kovovýroba na míru. Od roku 1999.</h1>
       <p class="hero__sub">Atypické ocelové konstrukce, prototypové díly a kompletní servis od návrhu po montáž.</p>
       <div class="hero__ctas">
         <a class="btn btn--primary" href="#kontakt">Nezávazná poptávka</a>
-        <a class="btn btn--secondary" href="#galerie">Prohlédnout realizace</a>
+        <a class="btn btn--secondary btn--on-dark" href="#galerie">Prohlédnout realizace</a>
       </div>
-    </div>
-
-    <div class="hero__visual reg-frame">
-      <figure class="photo-frame" style="--ar:16/9">
-        <div class="photo-frame__inner">
-          <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-          <p class="photo-frame__label">FOTO: doplní se po odsouhlasení designu</p>
-        </div>
-      </figure>
     </div>
   </div>
 </section>
@@ -216,11 +210,8 @@
     </div>
 
     <div class="about__visual">
-      <figure class="photo-frame" style="--ar:4/3">
-        <div class="photo-frame__inner">
-          <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-          <p class="photo-frame__label">FOTO: doplní se po odsouhlasení designu</p>
-        </div>
+      <figure class="photo-frame photo-frame--filled" style="--ar:4/3">
+        <img src="/images/about/o-nas.webp" alt="Kovaná vrata a plot – ukázka realizace Zámečnictví MB" width="1920" height="1440" loading="lazy" />
       </figure>
     </div>
   </div>
@@ -264,12 +255,76 @@
       <svg class="dim-rule"><use href="#motif-dim-rule"/></svg>
     </div>
 
-    <div class="gallery__filters" role="group" aria-label="Filtr kategorií galerie">
-      <button class="gallery__filter is-active" data-filter="vse">Vše</button>
-      <button class="gallery__filter" data-filter="ocelove-konstrukce">Ocelové konstrukce</button>
-      <button class="gallery__filter" data-filter="vrata-a-ploty">Vrata a ploty</button>
-      <button class="gallery__filter" data-filter="schody-a-zabradli">Schody a zábradlí</button>
-      <button class="gallery__filter" data-filter="atypicka-vyroba">Atypická výroba</button>
+    <!-- 4 oblasti podle reálných složek klienta na Drive – vstupní brána do filtru,
+         fotky vzadu jsou reálné ukázky z dané kategorie. -->
+    <div class="gallery__areas" id="gallery-areas" role="group" aria-label="Oblasti galerie podle kategorie">
+      <button type="button" class="gallery__area gallery__filter-trigger" data-filter="ocelove-konstrukce" data-reveal>
+        <span class="gallery__area-peek" aria-hidden="true">
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--a">
+            <img src="/images/galerie/peek/peek-ocelove-konstrukce-a.jpg" alt="" loading="lazy" />
+          </span>
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--b">
+            <img src="/images/galerie/peek/peek-ocelove-konstrukce-b.jpg" alt="" loading="lazy" />
+          </span>
+        </span>
+        <span class="gallery__area-panel reg-frame--hover">
+          <span class="gallery__area-title">Ocelové konstrukce</span>
+          <span class="gallery__area-count" data-count-for="ocelove-konstrukce"></span>
+          <svg class="gallery__area-arrow"><use href="#icon-chevron-down"/></svg>
+        </span>
+      </button>
+
+      <button type="button" class="gallery__area gallery__filter-trigger" data-filter="vrata-a-ploty" data-reveal>
+        <span class="gallery__area-peek" aria-hidden="true">
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--a">
+            <img src="/images/galerie/peek/peek-vrata-a-ploty-a.jpg" alt="" loading="lazy" />
+          </span>
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--b">
+            <img src="/images/galerie/peek/peek-vrata-a-ploty-b.jpg" alt="" loading="lazy" />
+          </span>
+        </span>
+        <span class="gallery__area-panel reg-frame--hover">
+          <span class="gallery__area-title">Vrata a ploty</span>
+          <span class="gallery__area-count" data-count-for="vrata-a-ploty"></span>
+          <svg class="gallery__area-arrow"><use href="#icon-chevron-down"/></svg>
+        </span>
+      </button>
+
+      <button type="button" class="gallery__area gallery__filter-trigger" data-filter="schody-a-zabradli" data-reveal>
+        <span class="gallery__area-peek" aria-hidden="true">
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--a">
+            <img src="/images/galerie/peek/peek-schody-a-zabradli-a.jpg" alt="" loading="lazy" />
+          </span>
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--b">
+            <img src="/images/galerie/peek/peek-schody-a-zabradli-b.jpg" alt="" loading="lazy" />
+          </span>
+        </span>
+        <span class="gallery__area-panel reg-frame--hover">
+          <span class="gallery__area-title">Schody a zábradlí</span>
+          <span class="gallery__area-count" data-count-for="schody-a-zabradli"></span>
+          <svg class="gallery__area-arrow"><use href="#icon-chevron-down"/></svg>
+        </span>
+      </button>
+
+      <button type="button" class="gallery__area gallery__filter-trigger" data-filter="atypicka-vyroba" data-reveal>
+        <span class="gallery__area-peek" aria-hidden="true">
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--a">
+            <img src="/images/galerie/peek/peek-atypicka-vyroba-a.jpg" alt="" loading="lazy" />
+          </span>
+          <span class="gallery__area-peek-photo gallery__area-peek-photo--b">
+            <img src="/images/galerie/peek/peek-atypicka-vyroba-b.jpg" alt="" loading="lazy" />
+          </span>
+        </span>
+        <span class="gallery__area-panel reg-frame--hover">
+          <span class="gallery__area-title">Atypická výroba</span>
+          <span class="gallery__area-count" data-count-for="atypicka-vyroba"></span>
+          <svg class="gallery__area-arrow"><use href="#icon-chevron-down"/></svg>
+        </span>
+      </button>
+    </div>
+
+    <div class="gallery__areas-reset">
+      <button type="button" class="gallery__reset gallery__filter-trigger is-active" data-filter="vse">Zobrazit všechny fotografie</button>
     </div>
 
     <div class="gallery__grid" id="gallery-grid">
@@ -430,11 +485,8 @@
 <!-- ============================== LIGHTBOX ============================== -->
 <dialog class="lightbox" id="lightbox" aria-label="Náhled fotografie">
   <div class="lightbox__frame">
-    <figure class="photo-frame reg-frame" id="lightbox-frame" style="--ar:4/3">
-      <div class="photo-frame__inner">
-        <svg class="photo-frame__icon"><use href="#icon-camera"/></svg>
-        <p class="photo-frame__label" id="lightbox-label">FOTO: doplní se po odsouhlasení designu</p>
-      </div>
+    <figure class="photo-frame photo-frame--filled reg-frame" id="lightbox-frame" style="--ar:4/3">
+      <img id="lightbox-img" src="" alt="" />
     </figure>
   </div>
   <div class="lightbox__meta">

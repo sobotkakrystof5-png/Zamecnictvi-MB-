@@ -38,19 +38,12 @@
   height: 34px;
   width: auto;
   transition: filter var(--duration-fast) var(--ease-standard);
-}
-
-/* Mobilní overlay je na stejné navy ploše jako logo, proto ho invertujeme, aby zůstalo čitelné */
-.header.is-nav-open .header__logo img {
+  /* Přes hero fotku je logo bílé (invertované); jakmile header zbělá při scrollu, vrátí se do tmavé verze. */
   filter: brightness(0) invert(1);
 }
 
-.header.is-nav-open .header__burger {
-  border-color: var(--color-white);
-}
-
-.header.is-nav-open .header__burger-bars span {
-  background: var(--color-white);
+.header.is-scrolled .header__logo img {
+  filter: none;
 }
 
 .header__nav {
@@ -73,9 +66,14 @@
     font-size: var(--text-small);
     font-weight: 500;
     text-decoration: none;
-    color: var(--color-navy);
+    color: var(--color-white);
     position: relative;
     padding-block: 0.35rem;
+    transition: color var(--duration-fast) var(--ease-standard);
+  }
+
+  .header.is-scrolled .header__nav-link {
+    color: var(--color-navy);
   }
 
   .header__nav-link::after {
@@ -111,9 +109,14 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--color-navy);
+  border: 1px solid var(--color-white);
   background: none;
   padding: 0;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.header.is-scrolled .header__burger {
+  border-color: var(--color-navy);
 }
 
 @media (min-width: 900px) {
@@ -133,9 +136,27 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-navy);
+  background: var(--color-white);
   transition: transform var(--duration-fast) var(--ease-standard),
-    opacity var(--duration-fast) var(--ease-standard);
+    opacity var(--duration-fast) var(--ease-standard),
+    background var(--duration-fast) var(--ease-standard);
+}
+
+.header.is-scrolled .header__burger-bars span {
+  background: var(--color-navy);
+}
+
+/* Mobilní overlay je navy bez ohledu na scroll, logo i burger proto zůstanou bílé */
+.header.is-nav-open .header__logo img {
+  filter: brightness(0) invert(1);
+}
+
+.header.is-nav-open .header__burger {
+  border-color: var(--color-white);
+}
+
+.header.is-nav-open .header__burger-bars span {
+  background: var(--color-white);
 }
 
 .header__burger-bars span:nth-child(1) {
