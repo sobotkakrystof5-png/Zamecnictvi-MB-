@@ -26,21 +26,36 @@
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  background: linear-gradient(180deg, var(--color-navy-tint) 0%, var(--color-white) 62%);
+  overflow: hidden;
+  background: var(--color-navy-dark);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(18, 51, 80, 0.68) 0%, rgba(18, 51, 80, 0.32) 40%, rgba(18, 51, 80, 0.8) 100%);
+}
+
+.hero__bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
 }
 
 .hero__inner {
-  display: grid;
-  gap: var(--space-xl);
-  align-items: center;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 900px) {
-  .hero__inner {
-    grid-template-columns: 1.4fr 1fr;
-    gap: var(--space-2xl);
-  }
+  position: relative;
+  z-index: 1;
+  width: 100%;
 }
 
 .hero__content {
@@ -52,11 +67,12 @@
 
 .hero__headline {
   max-width: 16ch;
+  color: var(--color-white);
 }
 
 .hero__sub {
   font-size: var(--text-body-lg);
-  color: var(--color-grey-dark);
+  color: rgba(255, 255, 255, 0.92);
   max-width: 46ch;
 }
 
@@ -65,10 +81,6 @@
   flex-wrap: wrap;
   gap: var(--space-sm);
   margin-top: var(--space-xs);
-}
-
-.hero__visual {
-  width: 100%;
 }
 
 /* ---- Číselný pruh (fakta, jen reálná čísla) ---- */
@@ -219,36 +231,160 @@
   color: var(--color-grey-dark);
 }
 
-/* ---- Galerie, masonry + filtr ---- */
-.gallery__filters {
+/* ---- Galerie: 4 oblasti (vstupní brána) ----
+   Karta = fotky vzadu (placeholder, nahradí se reálnými) vyčuhující zpod
+   navy panelu vepředu s názvem a počtem. Klik nastaví filtr a sjede na grid. */
+.gallery__areas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xl) var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+@media (min-width: 640px) {
+  .gallery__areas {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg) var(--space-md);
+  }
+}
+
+.gallery__area {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-bottom: var(--space-lg);
+  flex-direction: column;
+  border: 0;
+  background: none;
+  padding: 3rem 0 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 
-.gallery__filter {
-  padding: 0.5rem 1.1rem;
-  font-size: var(--text-small);
-  font-weight: 500;
-  border: 1.5px solid var(--color-border);
+.gallery__area-peek {
+  position: absolute;
+  top: -0.6rem;
+  left: 0.4rem;
+  right: 0.4rem;
+  height: 4.5rem;
+  pointer-events: none;
+}
+
+.gallery__area-peek-photo {
+  position: absolute;
+  width: 60%;
+  aspect-ratio: 4/3;
+  padding: 4px;
   background: var(--color-white);
-  color: var(--color-grey-dark);
-  border-radius: var(--radius);
-  transition: border-color var(--duration-fast) var(--ease-standard),
-    color var(--duration-fast) var(--ease-standard),
-    background var(--duration-fast) var(--ease-standard);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 
-.gallery__filter:hover {
-  border-color: var(--color-navy);
-  color: var(--color-navy);
+.gallery__area-peek-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.gallery__filter.is-active {
+.gallery__area-peek-photo--a {
+  left: 0;
+  top: 0;
+  z-index: 1;
+  transform: rotate(-7deg);
+}
+
+.gallery__area-peek-photo--b {
+  right: 0;
+  top: 0.9rem;
+  width: 52%;
+  z-index: 0;
+  transform: rotate(6deg);
+}
+
+.gallery__area:hover .gallery__area-peek-photo--a,
+.gallery__area:focus-visible .gallery__area-peek-photo--a {
+  transform: rotate(-11deg) translateY(-3px);
+}
+
+.gallery__area:hover .gallery__area-peek-photo--b,
+.gallery__area:focus-visible .gallery__area-peek-photo--b {
+  transform: rotate(10deg) translateY(-3px);
+}
+
+.gallery__area-panel {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  min-height: 7rem;
+  padding: var(--space-sm) var(--space-sm) var(--space-md);
   background: var(--color-navy);
-  border-color: var(--color-navy);
   color: var(--color-white);
+  transition: background var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.gallery__area:hover .gallery__area-panel,
+.gallery__area:focus-visible .gallery__area-panel,
+.gallery__area.is-active .gallery__area-panel {
+  background: var(--color-navy-dark);
+  transform: translateY(-3px);
+}
+
+.gallery__area-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  padding-right: 1.5rem;
+}
+
+.gallery__area-count {
+  font-size: var(--text-small);
+  color: var(--color-grey-light);
+}
+
+.gallery__area-arrow {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-yellow);
+  transform: rotate(-90deg);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.gallery__area:hover .gallery__area-arrow,
+.gallery__area:focus-visible .gallery__area-arrow {
+  transform: rotate(-90deg) translateX(3px);
+}
+
+.gallery__areas-reset {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--space-lg);
+}
+
+.gallery__reset {
+  border: 0;
+  background: none;
+  padding: 0.3rem 0.1rem;
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--color-grey-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.gallery__reset:hover,
+.gallery__reset.is-active {
+  color: var(--color-navy);
 }
 
 .gallery__grid {
@@ -279,23 +415,21 @@
   transition: opacity var(--duration-fast) var(--ease-standard);
 }
 
-.gallery__item .photo-frame {
+.gallery__item img {
+  display: block;
+  width: 100%;
+  height: auto;
   transition: box-shadow var(--duration-fast) var(--ease-standard);
 }
 
-.gallery__item:hover .photo-frame {
+.gallery__item:hover img,
+.gallery__item:focus-visible img {
   box-shadow: 0 0 0 2px var(--color-navy);
 }
 
 .gallery__item.is-hidden,
 .gallery__item.is-collapsed {
   display: none;
-}
-
-.gallery__item-number {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--color-grey-light);
 }
 
 .gallery__toggle-wrap {
@@ -322,9 +456,15 @@
 .lightbox {
   border: none;
   padding: 0;
-  max-width: min(90vw, 900px);
+  max-width: min(96vw, 1440px);
+  max-height: 92vh;
   width: 100%;
   background: var(--color-white);
+}
+
+.lightbox[open] {
+  display: flex;
+  flex-direction: column;
 }
 
 .lightbox::backdrop {
@@ -333,10 +473,46 @@
 
 .lightbox__frame {
   padding: var(--space-md);
+  display: flex;
+  align-items: flex-start;
+  overflow: auto;
+  min-height: 0;
+}
+
+.lightbox__frame .photo-frame {
+  width: auto;
+  max-width: 100%;
+  max-height: 82vh;
+  margin-inline: auto;
+  cursor: zoom-in;
+}
+
+.lightbox__frame .photo-frame img {
+  cursor: zoom-in;
+}
+
+/* Klik na fotku přepne na skutečné rozlišení; rám přestane fotku ořezávat/zmenšovat
+   a povolí posun (scroll), aby šlo prohlédnout detail nad rámec fit-to-screen náhledu. */
+.lightbox__frame .photo-frame.is-zoomed {
+  flex: none;
+  max-width: none;
+  max-height: none;
+  aspect-ratio: auto;
+  overflow: visible;
+  cursor: zoom-out;
+}
+
+.lightbox__frame .photo-frame.is-zoomed img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  object-fit: none;
+  cursor: zoom-out;
 }
 
 .lightbox__meta {
   display: flex;
+  flex: none;
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-md) var(--space-md);
