@@ -237,16 +237,42 @@
   var lightboxImg = document.getElementById("lightbox-img");
   var lightboxCaption = document.getElementById("lightbox-caption");
   var closeBtn = document.getElementById("lightbox-close");
+  var prevBtn = document.getElementById("lightbox-prev");
+  var nextBtn = document.getElementById("lightbox-next");
 
   if (lightbox && "showModal" in lightbox) {
+    // Pořadí fotek pro šipky/klávesnici/swipe = to, co je v danou chvíli
+    // vidět v mřížce (respektuje aktivní filtr i sbalení nad 12 fotek).
+    var navList = [];
+    var navIndex = -1;
+
+    function visibleGalleryItems() {
+      return Array.prototype.filter.call(galleryItems, function (el) {
+        return !el.classList.contains("is-hidden") && !el.classList.contains("is-collapsed");
+      });
+    }
+
+    function renderLightboxItem(item) {
+      var category = item.getAttribute("data-category");
+      lightboxFrame.classList.remove("is-zoomed");
+      if (lightboxScroll) lightboxScroll.classList.remove("is-zoomed");
+      lightboxFrame.style.setProperty("--ar", item.getAttribute("data-ar"));
+      lightboxImg.src = item.getAttribute("data-src");
+      lightboxImg.alt = CATEGORIES[category] + " – realizace Zámečnictví MB";
+      lightboxCaption.textContent = CATEGORIES[category];
+    }
+
+    function showByOffset(offset) {
+      if (navList.length < 2) return;
+      navIndex = (navIndex + offset + navList.length) % navList.length;
+      renderLightboxItem(navList[navIndex]);
+    }
+
     galleryItems.forEach(function (item) {
       item.addEventListener("click", function () {
-        var category = item.getAttribute("data-category");
-        lightboxFrame.classList.remove("is-zoomed");
-        lightboxFrame.style.setProperty("--ar", item.getAttribute("data-ar"));
-        lightboxImg.src = item.getAttribute("data-src");
-        lightboxImg.alt = CATEGORIES[category] + " – realizace Zámečnictví MB";
-        lightboxCaption.textContent = CATEGORIES[category];
+        navList = visibleGalleryItems();
+        navIndex = navList.indexOf(item);
+        renderLightboxItem(item);
         lightbox.showModal();
       });
     });
@@ -257,10 +283,74 @@
       e.stopPropagation();
       lightboxFrame.classList.toggle("is-zoomed");
       if (lightboxScroll) {
+        lightboxScroll.classList.toggle("is-zoomed");
         lightboxScroll.scrollTop = 0;
         lightboxScroll.scrollLeft = 0;
       }
     });
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        showByOffset(-1);
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        showByOffset(1);
+      });
+    }
+
+    // Šipky doleva/doprava na klávesnici přepínají fotky, dokud je náhled otevřený.
+    lightbox.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        showByOffset(1);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        showByOffset(-1);
+      }
+    });
+
+    // Swipe na mobilu přepíná fotky. Mimo přiblížený režim, kde swipe/scroll
+    // slouží k posunu po fotce, ne k přepínání.
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchTracking = false;
+    var SWIPE_THRESHOLD = 40;
+
+    if (lightboxScroll) {
+      lightboxScroll.addEventListener(
+        "touchstart",
+        function (e) {
+          if (lightboxFrame.classList.contains("is-zoomed") || e.touches.length !== 1) {
+            touchTracking = false;
+            return;
+          }
+          touchTracking = true;
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        },
+        { passive: true }
+      );
+
+      lightboxScroll.addEventListener(
+        "touchend",
+        function (e) {
+          if (!touchTracking) return;
+          touchTracking = false;
+          var touch = e.changedTouches[0];
+          var dx = touch.clientX - touchStartX;
+          var dy = touch.clientY - touchStartY;
+          if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+            showByOffset(dx < 0 ? 1 : -1);
+          }
+        },
+        { passive: true }
+      );
+    }
 
     closeBtn.addEventListener("click", function () {
       lightbox.close();
@@ -268,6 +358,7 @@
 
     lightbox.addEventListener("close", function () {
       lightboxFrame.classList.remove("is-zoomed");
+      if (lightboxScroll) lightboxScroll.classList.remove("is-zoomed");
     });
 
     // Klik přímo na <dialog> (mimo jeho potomky) zasáhne jen backdrop. Zavřít.

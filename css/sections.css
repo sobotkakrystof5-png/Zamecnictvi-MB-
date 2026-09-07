@@ -477,6 +477,49 @@
   align-items: flex-start;
   overflow: auto;
   min-height: 0;
+  position: relative;
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-navy);
+}
+
+.lightbox__nav:hover {
+  border-color: var(--color-navy);
+}
+
+.lightbox__nav--prev {
+  left: var(--space-sm);
+}
+
+.lightbox__nav--prev svg {
+  transform: rotate(90deg);
+}
+
+.lightbox__nav--next {
+  right: var(--space-sm);
+}
+
+.lightbox__nav--next svg {
+  transform: rotate(-90deg);
+}
+
+/* Přiblížený režim slouží k posunu po fotce (drag/scroll) — šipky by
+   překážely a scrollovaly by se spolu s obsahem, proto se skrývají. */
+.lightbox__frame.is-zoomed .lightbox__nav {
+  display: none;
 }
 
 .lightbox__frame .photo-frame {
