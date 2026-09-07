@@ -486,9 +486,15 @@
 <!-- ============================== LIGHTBOX ============================== -->
 <dialog class="lightbox" id="lightbox" aria-label="Náhled fotografie">
   <div class="lightbox__frame">
+    <button class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" type="button" aria-label="Předchozí fotografie">
+      <svg width="20" height="20"><use href="#icon-chevron-down"/></svg>
+    </button>
     <figure class="photo-frame photo-frame--filled reg-frame" id="lightbox-frame" style="--ar:4/3">
       <img id="lightbox-img" src="" alt="" />
     </figure>
+    <button class="lightbox__nav lightbox__nav--next" id="lightbox-next" type="button" aria-label="Další fotografie">
+      <svg width="20" height="20"><use href="#icon-chevron-down"/></svg>
+    </button>
   </div>
   <div class="lightbox__meta">
     <span id="lightbox-caption" class="form-hint"></span>
