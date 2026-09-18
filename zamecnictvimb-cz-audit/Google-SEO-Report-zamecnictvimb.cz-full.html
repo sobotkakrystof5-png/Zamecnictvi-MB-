@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 22mm 18mm 25mm 18mm;
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 9pt;
+      color: #6b7280;
+      font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+    }
+    @bottom-left {
+      content: "Confidential";
+      font-size: 7pt;
+      color: #d6d3cc;
+      font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+    }
+    @bottom-right {
+      content: "zamecnictvimb.cz Google SEO Report";
+      font-size: 8pt;
+      color: #cbd5e1;
+      font-family: 'DejaVu Serif', 'Times New Roman', Georgia, serif;
+    }
+  }
+
+  @page :first {
+    margin: 0;
+    @bottom-left { content: none; }
+    @bottom-center { content: none; }
+    @bottom-right { content: none; }
+  }
+
+  @page toc {
+    @bottom-center {
+      content: counter(page);
+      font-size: 9pt;
+      color: #6b7280;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Times New Roman', 'DejaVu Serif', Georgia, serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1e293b;
+    background: white;
+  }
+
+  /* ─── Title Page (Clean White) ─── */
+  .title-page {
+    page: first;
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #1a1a2e;
+    position: relative;
+    padding: 50mm 30mm 40mm 30mm;
+    border-top: 6mm solid #1e3a5f;
+  }
+
+  .title-page .badge {
+    background: #f7f6f3;
+    border: 1px solid #d6d3cc;
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 9pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15mm;
+    color: #1e3a5f;
+  }
+
+  .title-page h1 {
+    font-size: 28pt;
+    font-weight: bold;
+    margin-bottom: 5mm;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    color: #1a1a2e;
+  }
+
+  .title-page .subtitle {
+    font-size: 13pt;
+    color: #6b7280;
+    margin-bottom: 12mm;
+    font-weight: 300;
+  }
+
+  .title-page .url {
+    font-size: 12pt;
+    color: #1e3a5f;
+    margin-bottom: 15mm;
+    padding: 4mm 8mm;
+    border: 1px solid #d6d3cc;
+    border-radius: 6px;
+    background: #faf9f7;
+  }
+
+  .title-page .score-box {
+    background: #faf9f7;
+    border: 2px solid #d6d3cc;
+    border-radius: 12px;
+    padding: 6mm 12mm;
+    margin-bottom: 15mm;
+  }
+
+  .title-page .score-number {
+    font-size: 42pt;
+    font-weight: bold;
+    color: #1e3a5f;
+    line-height: 1;
+  }
+
+  .title-page .score-label {
+    font-size: 10pt;
+    color: #6b7280;
+    margin-top: 2mm;
+  }
+
+  .title-page .meta {
+    font-size: 9pt;
+    color: #6b7280;
+    margin-top: 8mm;
+    padding-top: 5mm;
+    border-top: 1px solid #d6d3cc;
+  }
+
+  .title-page .meta span {
+    margin: 0 8px;
+  }
+
+  /* ─── Table of Contents ─── */
+  .toc-page {
+    page: toc;
+    page-break-before: always;
+  }
+
+  .toc-page h2 {
+    font-size: 18pt;
+    color: #1e3a5f;
+    margin-bottom: 8mm;
+    padding-bottom: 3mm;
+    border-bottom: 2px solid #1e3a5f;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .toc-list li {
+    padding: 2mm 0;
+    border-bottom: 1px solid #f1f5f9;
+    overflow: hidden;
+  }
+
+  .toc-list li.toc-section {
+    font-weight: bold;
+    font-size: 11pt;
+    padding-top: 4mm;
+    color: #0f172a;
+  }
+
+  .toc-list li.toc-sub {
+    padding-left: 8mm;
+    font-size: 9.5pt;
+    color: #475569;
+  }
+
+  .toc-score {
+    display: inline-block;
+    float: right;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 9pt;
+    font-weight: bold;
+    color: white;
+  }
+
+  .score-good { background: #2d6a4f; }
+  .score-warn { background: #d4740e; }
+  .score-bad { background: #c53030; }
+
+  /* ─── Section Styles ─── */
+  div.section {
+    page-break-before: always;
+  }
+
+  .section-header {
+    background: #faf9f7;
+    border-left: 4px solid #1e3a5f;
+    padding: 5mm 6mm;
+    margin-bottom: 6mm;
+    page-break-after: avoid;
+  }
+
+  .section-header h2 {
+    font-size: 16pt;
+    color: #0f172a;
+    margin-bottom: 1mm;
+  }
+
+  .section-header .section-score {
+    font-size: 12pt;
+    font-weight: bold;
+    float: right;
+    margin-top: -6mm;
+  }
+
+  h3 {
+    font-size: 12pt;
+    color: #1e3a5f;
+    margin-top: 6mm;
+    margin-bottom: 3mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 1px solid #d6d3cc;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    font-size: 10.5pt;
+    color: #334155;
+    margin-top: 4mm;
+    margin-bottom: 2mm;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin-bottom: 3mm;
+    color: #334155;
+  }
+
+  .highlight {
+    background: #fef3c7;
+    border-left: 3px solid #d4740e;
+    padding: 3mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.5pt;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .critical-box {
+    background: #fef2f2;
+    border-left: 3px solid #c53030;
+    padding: 3mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.5pt;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .success-box {
+    background: #f0fdf4;
+    border-left: 3px solid #2d6a4f;
+    padding: 3mm 4mm;
+    margin: 4mm 0;
+    font-size: 9.5pt;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0 6mm 0;
+    font-size: 9pt;
+  }
+
+  thead th {
+    background: #f7f6f3;
+    color: #0f172a;
+    font-weight: bold;
+    padding: 3mm 4mm;
+    text-align: left;
+    border-bottom: 2px solid #d6d3cc;
+    font-size: 9pt;
+  }
+
+  tbody td {
+    padding: 2.5mm 3mm;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: #fdfcfa;
+  }
+
+  .status-pass {
+    color: #2d6a4f;
+    font-weight: bold;
+  }
+
+  .status-fail {
+    color: #c53030;
+    font-weight: bold;
+  }
+
+  .status-warn {
+    color: #d4740e;
+    font-weight: bold;
+  }
+
+  .status-partial {
+    color: #4a5568;
+    font-weight: bold;
+  }
+
+  /* ─── Charts ─── */
+  .chart-container {
+    text-align: center;
+    margin: 4mm 0;
+  }
+
+  .chart-container img {
+    max-width: 100%;
+    max-height: 120mm;
+    height: auto;
+  }
+
+  .chart-caption {
+    font-size: 8.5pt;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 2mm;
+    text-align: center;
+  }
+
+  .chart-half {
+    display: inline-block;
+    width: 48%;
+    vertical-align: top;
+    text-align: center;
+    margin: 2mm 0;
+  }
+
+  .chart-half img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ─── Two column layout ─── */
+  .two-col {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 3mm 0;
+  }
+
+  .two-col .col {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 2mm;
+  }
+
+  .four-col {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin: 3mm 0;
+  }
+
+  .four-col .col {
+    display: table-cell;
+    vertical-align: top;
+    padding: 0 1.5mm;
+  }
+
+  /* ─── Metric Cards ─── */
+  .metric-card {
+    background: #faf9f7;
+    border: 1px solid #d6d3cc;
+    border-radius: 6px;
+    padding: 2.5mm 3mm;
+    text-align: center;
+    margin: 2mm 0;
+  }
+
+  .metric-card .value {
+    font-size: 14pt;
+    font-weight: bold;
+    line-height: 1.2;
+  }
+
+  .metric-card .label {
+    font-size: 7.5pt;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1mm;
+  }
+
+  /* ─── Action Plan ─── */
+  .action-item {
+    background: #faf9f7;
+    border-radius: 4px;
+    padding: 3mm 4mm;
+    margin: 3mm 0;
+    border-left: 3px solid #cbd5e1;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .action-item.critical {
+    border-left-color: #c53030;
+    background: #fdf2f2;
+  }
+
+  .action-item.high {
+    border-left-color: #d4740e;
+    background: #fdf8ef;
+  }
+
+  .action-item.medium {
+    border-left-color: #1e3a5f;
+    background: #f0f4f8;
+  }
+
+  .action-item.low {
+    border-left-color: #94a3b8;
+  }
+
+  .action-item h4 {
+    margin-top: 0;
+    margin-bottom: 1.5mm;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .action-item .effort {
+    font-size: 8.5pt;
+    color: #64748b;
+    float: right;
+  }
+
+  .priority-tag {
+    display: inline-block;
+    padding: 0.5mm 3mm;
+    border-radius: 3px;
+    font-size: 8pt;
+    font-weight: bold;
+    color: white;
+    margin-right: 2mm;
+    vertical-align: middle;
+  }
+
+  .priority-critical { background: #c53030; }
+  .priority-high { background: #d4740e; }
+  .priority-medium { background: #1e3a5f; }
+  .priority-low { background: #94a3b8; }
+
+  /* ─── Code blocks ─── */
+  .code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 3mm 4mm;
+    border-radius: 4px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    font-size: 8pt;
+    line-height: 1.6;
+    margin: 3mm 0;
+    white-space: pre-wrap;
+    word-break: break-all;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  /* ─── Divider ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid #d6d3cc;
+    margin: 5mm 0;
+  }
+
+  /* ─── Roadmap ─── */
+  .roadmap-phase {
+    background: #faf9f7;
+    border-radius: 6px;
+    padding: 4mm 5mm;
+    margin: 4mm 0;
+    border: 1px solid #d6d3cc;
+    /* allow page breaks to prevent white gaps */
+  }
+
+  .roadmap-phase h4 {
+    margin-top: 0;
+    border-bottom: none;
+    color: #1e3a5f;
+  }
+
+  .roadmap-phase ul {
+    margin: 2mm 0 0 5mm;
+    padding: 0;
+  }
+
+  .roadmap-phase li {
+    margin-bottom: 1.5mm;
+    font-size: 9.5pt;
+    color: #334155;
+  }
+
+  /* ─── Lists ─── */
+  ul {
+    margin-left: 5mm;
+    margin-bottom: 3mm;
+  }
+
+  li {
+    margin-bottom: 1.5mm;
+  }
+
+  /* ─── Data freshness ─── */
+  .data-freshness {
+    font-size: 8pt;
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 4mm;
+    padding-top: 2mm;
+    border-top: 1px solid #d6d3cc;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ======================================================= TITLE PAGE === -->
+<div class="title-page">
+  <div class="badge">Full SEO Audit Report</div>
+  <h1>zamecnictvimb.cz</h1>
+  <div class="subtitle">Prepared by Claude SEO</div>
+  <div class="score-box">
+    <div class="score-number">70<span style="font-size: 20pt; color: #94a3b8;">/100</span></div>
+    <div class="score-label">SEO Health Score</div>
+  </div>
+  <div class="meta">
+    <span>September 09, 2026</span>
+    <span>Full Audit</span>
+  </div>
+</div>
+
+
+<!-- ======================================================= TABLE OF CONTENTS === -->
+<div class="toc-page">
+  <h2>Table of Contents</h2>
+  <ul class="toc-list">
+    <li class="toc-section"><span>1. Executive Summary</span></li>
+    <li class="toc-sub"><span>Key Metrics, Critical Issues &amp; Quick Wins</span></li>
+    <li class="toc-section"><span>2. Audit Categories</span></li>
+    <li class="toc-sub"><span>What Works</span></li>
+    <li class="toc-sub"><span>Findings by Severity</span></li>
+    <li class="toc-section"><span>3. Action Plan</span></li>
+    <li class="toc-sub"><span>Phased Roadmap</span></li>
+    <li class="toc-section"><span>4. Data Sources &amp; Methodology</span></li>
+  </ul>
+</div>
+
+
+<!-- ======================================================= 1. EXECUTIVE SUMMARY === -->
+<div class="section">
+  <div class="section-header">
+    <h2>1. Executive Summary</h2>
+  </div>
+
+  <p>This report presents a comprehensive SEO audit of <strong>zamecnictvimb.cz</strong> for a <strong>Local Service / brick-and-mortar kovovýroba (pre-launch, single-page site)</strong> site, generated on September 09, 2026. Findings combine technical, content, schema, performance, visual, and search-readiness evidence as available.</p>
+
+  <div class="two-col">
+    <div class="col">
+      <div class="metric-card">
+        <div class="value" style="color: #d4740e;">70/100</div>
+        <div class="label">SEO Health Score</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="critical-box">
+    <strong>Critical Issues Found:</strong>
+    <ol>
+      <li><strong>Info:</strong> Galerie: 64 fotek, průměr 313 KB, žádné responsive verze pro grid vs. lightbox</li>
+      <li><strong>Info:</strong> Chybí CSP a HSTS bezpečnostní hlavičky</li>
+      <li><strong>Info:</strong> o-nas.webp: 1920x1440px zobrazeno na 651x488px, 422 KB zbytečně</li>
+      <li><strong>Info:</strong> Meta description 200 znaků, ořízne se v SERPu</li>
+      <li><strong>Info:</strong> Neunikátní alt texty napříč galerijními fotkami v rámci kategorie</li>
+    </ol>
+  </div>
+
+  <div class="success-box">
+    <strong>Quick Wins:</strong>
+    <ol>
+      <li>Zkrátit meta description na ~150 znaků</li>
+      <li>Přidat preload pro Space Grotesk font</li>
+      <li>Doplnit bezpečnostní hlavičky do vercel.json</li>
+      <li>Zmenšit logo PNG na reálně zobrazovanou velikost</li>
+    </ol>
+  </div>
+
+</div>
+
+<!-- ======================================================= 2. AUDIT CATEGORIES === -->
+<div class="section">
+  <div class="section-header">
+    <h2>2. Audit Categories</h2>
+  </div>
+
+  <h3>2.1 Technical SEO</h3>
+  <p><strong>Score:</strong> <span class="status-pass">80/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>lang, viewport, charset, canonical správně nastaveny</li>
+    <li>robots.txt povoluje vše včetně AI crawlerů</li>
+    <li>sémantické HTML5, jedno h1, žádné přeskočené úrovně nadpisů</li>
+    <li>Lighthouse Best Practices a SEO 100/100</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Chybí CSP a HSTS hlavičky <span class="status-warn">High</span></h4>
+    <p>Lighthouse: No CSP found in enforcement mode; No HSTS header found. vercel.json řeší jen cache-control pro fonty/obrázky.</p>
+    <p><strong>Recommendation:</strong> Doplnit do vercel.json Strict-Transport-Security, Content-Security-Policy, X-Content-Type-Options, Referrer-Policy, Permissions-Policy pro všechny cesty; otestovat proti Google Maps iframe.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Meta description je 200 znaků <span class="status-warn">Medium</span></h4>
+    <p>Google ořízne popis v SERPu kolem 155-160 znaků na desktopu.</p>
+    <p><strong>Recommendation:</strong> Zkrátit na ~150-155 znaků.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Chybí og:image a twitter:image <span class="status-warn">Medium</span></h4>
+    <p>OG tagy jsou z části vyplněné, ale bez og:image; twitter:card je summary místo summary_large_image.</p>
+    <p><strong>Recommendation:</strong> Připravit OG obrázek 1200x630 a doplnit meta tagy, jakmile budou hotové vizuální podklady.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Chybí preload pro klíčový font <span class="status-warn">Low</span></h4>
+    <p>LCP prvek (h1) čeká 525ms element render delay částečně kvůli pozdě objevenému fontu.</p>
+    <p><strong>Recommendation:</strong> Přidat rel=preload pro space-grotesk-latin.woff2 a latin-ext variantu.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.2 Content Quality</h3>
+  <p><strong>Score:</strong> <span class="status-warn">65/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Fakta o firmě (rok založení, adresa, IČO) konzistentní napříč stránkou</li>
+    <li>Reálné galerijní fotky už nahrané (63 ks) místo placeholderů</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Tenčí obsah v sekci Služby <span class="status-warn">Medium</span></h4>
+    <p>Statický text stránky má cca 415 slov; sekce Služby má po redukci jen 3 dlaždice.</p>
+    <p><strong>Recommendation:</strong> Zvážit rozšíření obsahu s reálnými podklady od klienta (certifikace, reference), needomýšlet fakta.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Chybí E-E-A-T signály (reference, certifikace) <span class="status-warn">Low</span></h4>
+    <p>Žádné konkrétní case studies, certifikace ani recenze na stránce.</p>
+    <p><strong>Recommendation:</strong> Doplnit až s reálnými podklady od klienta.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.3 On-Page SEO</h3>
+  <p><strong>Score:</strong> <span class="status-warn">78/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Title tag 62 znaků, obsahuje brand + klíčové slovo + rok založení</li>
+    <li>Jedno h1, logická h2/h3 struktura</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Meta description a og:image – viz Technical SEO <span class="status-warn">Medium</span></h4>
+    <p>Duplicitně uvedeno v technické kategorii, ovlivňuje i on-page CTR.</p>
+    <p><strong>Recommendation:</strong> Viz Technical SEO nálezy.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.4 Schema / Structured Data</h3>
+  <p><strong>Score:</strong> <span class="status-warn">55/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>JSON-LD LocalBusiness přítomné a validní</li>
+    <li>NAP údaje (jméno, adresa, telefon) konzistentní se zbytkem stránky</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Chybí openingHoursSpecification, geo, priceRange, areaServed, sameAs <span class="status-warn">Medium</span></h4>
+    <p>LocalBusiness schema neobsahuje otevírací dobu, GPS souřadnice, cenovou hladinu, obsluhovanou oblast ani odkazy na Google Business Profile/sociální sítě.</p>
+    <p><strong>Recommendation:</strong> Doplnit až s reálnými údaji od klienta - nedomýšlet.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.5 Performance (CWV)</h3>
+  <p><strong>Score:</strong> <span class="status-warn">75/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Desktop Lighthouse Performance 99/100, LCP 1.0s</li>
+    <li>CLS prakticky 0 (0.017) díky width/height atributům</li>
+    <li>TBT 0ms, žádný render-blocking JS</li>
+    <li>font-display: swap na všech fontech</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Galerie: 64 fotek bez responsive verzí, průměr 313 KB <span class="status-warn">Critical</span></h4>
+    <p>gallery.js posílá do gridu i lightboxu identický plnorozměrný soubor; grid dlaždice se zobrazují v řádu stovek pixelů, ale stahují se plné rozměry až 1920px.</p>
+    <p><strong>Recommendation:</strong> Vygenerovat grid thumbnail (~500-600px) a lightbox verzi (~1600-1920px) pro každou fotku.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>o-nas.webp předimenzovaný <span class="status-warn">High</span></h4>
+    <p>1920x1440px soubor zobrazen na 651x488px, Lighthouse odhaduje 422 KB zbytečně stažených dat.</p>
+    <p><strong>Recommendation:</strong> Zmenšit na ~1300px šířky.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Logo PNG předimenzované <span class="status-warn">Medium</span></h4>
+    <p>791x114px soubor zobrazen max na 236x34px, odhad 43 KB úspory.</p>
+    <p><strong>Recommendation:</strong> Exportovat v rozlišení odpovídajícím max. zobrazované šířce, zvážit WebP.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.6 AI Search Readiness</h3>
+  <p><strong>Score:</strong> <span class="status-warn">60/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>robots.txt nic neblokuje pro AI crawlery</li>
+    <li>Hlavní fakta o firmě jsou v čistém HTML, ne za JS renderem</li>
+    <li>Konzistentní fakta napříč stránkou pomáhají přesné citaci</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Chybí Q&amp;A/FAQ strukturovaný obsah <span class="status-warn">Low</span></h4>
+    <p>AI vyhledávače (Perplexity, AI Overviews) často citují pasáže ve formátu otázka-odpověď, které na stránce chybí.</p>
+    <p><strong>Recommendation:</strong> Zvážit krátký FAQ blok s finálním obsahem, needomýšlet nyní.</p>
+  </div>
+  <hr class="divider">
+  <h3>2.7 Images</h3>
+  <p><strong>Score:</strong> <span class="status-warn">50/100</span></p>
+  <h4>What Works</h4>
+  <ul>
+    <li>Všechny obrázky mají alt text</li>
+    <li>loading=lazy a decoding=async správně použity</li>
+    <li>WebP formát napříč galerií</li>
+  </ul>
+  <h4>Findings</h4>
+  <div class="action-item medium">
+    <h4>Neunikátní alt texty napříč kategoriemi <span class="status-warn">Medium</span></h4>
+    <p>Všech 35 fotek kategorie &#x27;Schody a zábradlí&#x27; má identický alt text generovaný jen podle kategorie.</p>
+    <p><strong>Recommendation:</strong> Rozšířit datovou strukturu v gallery.js o unikátní popisek na fotku.</p>
+  </div>
+  <div class="action-item medium">
+    <h4>Nepopisné názvy souborů <span class="status-warn">Low</span></h4>
+    <p>Soubory pojmenované podle timestampu z fotoaparátu (např. 20250710_081203.webp).</p>
+    <p><strong>Recommendation:</strong> Přejmenovat na popisné slug názvy při generování zmenšených verzí.</p>
+  </div>
+  <hr class="divider">
+</div>
+
+<!-- ======================================================= 3. ACTION PLAN === -->
+<div class="section">
+  <div class="section-header">
+    <h2>3. Action Plan</h2>
+  </div>
+
+  <div class="roadmap-phase">
+    <h4>Fáze 1: Kritické opravy před spuštěním <span class="effort">Před launchem</span></h4>
+    <ul>
+      <li>Vygenerovat responsive verze galerijních fotek (grid + lightbox)</li>
+      <li>Zmenšit o-nas.webp na ~1300px</li>
+      <li>Doplnit CSP + HSTS + bezpečnostní hlavičky do vercel.json</li>
+    </ul>
+  </div>
+  <div class="roadmap-phase">
+    <h4>Fáze 2: Vysoký dopad <span class="effort">Týden po fázi 1</span></h4>
+    <ul>
+      <li>Zkrátit meta description</li>
+      <li>Doplnit og:image + twitter:image (potřebuje vizuál)</li>
+      <li>Zmenšit logo PNG</li>
+      <li>Preload pro Space Grotesk font</li>
+    </ul>
+  </div>
+  <div class="roadmap-phase">
+    <h4>Fáze 3: Obsah a schema (vyžaduje vstup klienta) <span class="effort">Před finálním spuštěním</span></h4>
+    <ul>
+      <li>Doplnit openingHours, geo, priceRange, areaServed, sameAs do JSON-LD</li>
+      <li>Potvrdit funkčnost e-mailové schránky</li>
+      <li>Unikátní alt texty pro galerii</li>
+      <li>Zvážit E-E-A-T obsah (reference, certifikace)</li>
+    </ul>
+  </div>
+  <div class="roadmap-phase">
+    <h4>Fáze 4: Po spuštění <span class="effort">Ongoing</span></h4>
+    <ul>
+      <li>Google Search Console + sitemap submit</li>
+      <li>Ověřit produkční hlavičky přes curl -I</li>
+      <li>Znovu spustit audit proti živé doméně pro CrUX data</li>
+      <li>Zvážit privacy-friendly analytics</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ======================================================= DATA SOURCES & METHODOLOGY === -->
+<div class="section" style="text-align: center; padding-top: 15mm;">
+  <hr class="divider">
+  <h3 style="text-align: left;">Data Sources &amp; Methodology</h3>
+  <table>
+    <thead>
+      <tr><th>Source</th><th>Description</th><th>Update Frequency</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>PageSpeed Insights API</td>
+          <td>Lighthouse lab audit (mobile emulation, Moto G Power, slow 4G)</td>
+          <td>Real-time</td></tr>
+      <tr><td>Chrome UX Report (CrUX)</td>
+          <td>28-day rolling field data from real Chrome users</td>
+          <td>Daily ~04:00 UTC</td></tr>
+      <tr><td>CrUX History API</td>
+          <td>25-week p75 trend data per metric</td>
+          <td>Weekly</td></tr>
+      <tr><td>Google Search Console</td>
+          <td>Search Analytics (clicks, impressions, CTR, position)</td>
+          <td>2-3 day lag</td></tr>
+      <tr><td>URL Inspection API</td>
+          <td>Per-URL index status, coverage state, crawl info</td>
+          <td>Real-time (2,000/day)</td></tr>
+    </tbody>
+  </table>
+  <p style="color: #94a3b8; font-size: 9pt; margin-top: 5mm;">
+    Report generated by Claude SEO &mdash; Google SEO Intelligence Skill &mdash; September 09, 2026<br>
+    Methodology based on Google Web Vitals thresholds, Search Console documentation, and Lighthouse scoring algorithms.
+  </p>
+</div>
+
+</body>
+</html>
