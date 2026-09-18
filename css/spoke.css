@@ -1,0 +1,257 @@
+/* ==========================================================================
+   Spoke / service landing page template (/sluzby/*.html)
+   Načteno jen na spoke stránkách, ne na hubu — sdílí tokeny a komponenty
+   z tokens.css/base.css/layout.css/components.css, nic neduplikuje.
+   ========================================================================== */
+
+/* ---- Breadcrumb (na tmavém subheru) ---- */
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: var(--text-small);
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: var(--space-md);
+}
+
+.breadcrumb a {
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-yellow);
+}
+
+.breadcrumb__sep {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.breadcrumb__current {
+  color: var(--color-white);
+}
+
+/* ---- Subhero: kratší varianta hlavního hero pro vnitřní stránky ---- */
+.subhero {
+  position: relative;
+  min-height: 44vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--color-navy-dark);
+  padding-block: 7rem var(--space-2xl);
+}
+
+.subhero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.subhero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(18, 51, 80, 0.55) 0%, rgba(18, 51, 80, 0.3) 35%, rgba(18, 51, 80, 0.88) 100%);
+}
+
+.subhero__bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.subhero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.subhero h1 {
+  color: var(--color-white);
+  max-width: 20ch;
+}
+
+.subhero__lead {
+  margin-top: var(--space-sm);
+  font-size: var(--text-body-lg);
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 60ch;
+}
+
+.subhero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+/* ---- Feature grid (stejný jazyk jako .about__values, vlastní třída kvůli
+   nezávislosti šablony spoke stránek na sekci O nás hubu) ---- */
+.feature-grid {
+  margin-top: var(--space-xl);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md) var(--space-lg);
+}
+
+@media (min-width: 700px) {
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feature-block {
+  padding-top: var(--space-sm);
+  border-top: 2px solid var(--color-navy);
+}
+
+.feature-block__title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-navy);
+  margin-bottom: 0.35rem;
+}
+
+.feature-block__text {
+  font-size: var(--text-small);
+  color: var(--color-grey-dark);
+}
+
+/* ---- Postup zakázky: číslované kroky ---- */
+.process-list {
+  margin-top: var(--space-xl);
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+  .process-list {
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-md);
+  }
+}
+
+.process-step__num {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-yellow-dark);
+}
+
+.process-step__title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-navy);
+  margin-top: 0.25rem;
+}
+
+.process-step__text {
+  font-size: var(--text-small);
+  color: var(--color-grey-dark);
+  margin-top: 0.35rem;
+}
+
+/* ---- Fotogalerie realizací na spoke stránce (statická, bez filtru/lightboxu) ---- */
+.spoke-gallery {
+  margin-top: var(--space-xl);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+
+@media (min-width: 700px) {
+  .spoke-gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .spoke-gallery {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- FAQ (native <details>/<summary>, žádné JS navíc) ---- */
+.faq-list {
+  margin-top: var(--space-xl);
+  max-width: 74ch;
+}
+
+.faq-item {
+  border-top: 1px solid var(--color-border);
+  padding-block: var(--space-md);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-navy);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-navy);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.faq-item[open] .faq-item__icon {
+  transform: rotate(180deg);
+}
+
+.faq-item p {
+  margin-top: var(--space-sm);
+  color: var(--color-grey-dark);
+  max-width: 68ch;
+}
+
+/* ---- Závěrečný CTA pruh ---- */
+.cta-band {
+  background: var(--color-navy);
+  color: var(--color-white);
+  background-image: repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px);
+}
+
+.cta-band__inner {
+  padding-block: var(--space-2xl);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+.cta-band h2 {
+  color: var(--color-white);
+}
+
+.cta-band p {
+  color: var(--color-grey-light);
+  margin-top: 0.5rem;
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
