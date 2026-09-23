@@ -391,27 +391,6 @@
   transform: rotate(-90deg) translateX(3px);
 }
 
-.gallery__spoke-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.4rem var(--space-md);
-  margin-top: var(--space-lg);
-  font-size: var(--text-small);
-}
-
-.gallery__spoke-links a {
-  color: var(--color-grey-dark);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--duration-fast) var(--ease-standard);
-}
-
-.gallery__spoke-links a:hover,
-.gallery__spoke-links a:focus-visible {
-  color: var(--color-navy);
-}
-
 .gallery__areas-reset {
   display: flex;
   justify-content: center;
