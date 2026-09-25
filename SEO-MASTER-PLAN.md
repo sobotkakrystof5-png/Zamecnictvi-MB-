@@ -1,12 +1,12 @@
 # SEO Master plán — Zámečnictví MB s.r.o.
 
-Datum: 2026-09-09. Účel: rozfázovaný plán pro dokončení SEO optimalizace + SEO clusteru + Collabim keyword loopu, navržený tak, aby jednotlivé fáze šly rozdělit mezi víc Claude Code sessions (i souběžně). Každá fáze má vlastní kontext, takže ji jde otevřít v nové session bez znalosti historie téhle konverzace — stačí nasměrovat session na konkrétní fázi (`P1.1`, `P6.3` atd.).
+Datum: 2026-09-09. Účel: rozfázovaný plán pro dokončení SEO optimalizace + SEO clusteru + Collabim keyword loopu, navržený tak, aby jednotlivé fáze šly rozdělit mezi víc pracovních sessions (i souběžně). Každá fáze má vlastní kontext, takže ji jde otevřít v nové session bez znalosti historie téhle konverzace — stačí nasměrovat session na konkrétní fázi (`P1.1`, `P6.3` atd.).
 
 Zdroje pravdy, na které se tento plán odkazuje:
 - `zamecnictvimb-cz-audit/` — SEO audit (Health Score 70/100), `ACTION-PLAN.md`, `findings/*.md`
 - `zamecnictvimb-cz-audit/gallery-manifest.json` — hotová data pro 64 fotek galerie
 - `zamecnictvimb-cz-audit/seo-cluster-plan.md` — hotový návrh 5 spoke stránek (SERP-based clustering)
-- `CLAUDE.md` (root) — závazná pravidla projektu (jednostránkový hub, žádný framework, nedomýšlet fakta/texty)
+- interní brief projektu — závazná pravidla (jednostránkový hub, žádný framework, nedomýšlet fakta/texty)
 
 Pravidlo napříč všemi fázemi: **nikdy nevymýšlet business fakta, ceny, certifikace ani texty prezentované jako fakt** — pokud fáze potřebuje reálný údaj od klienta a nemá ho, zastavit a zeptat se, ne odhadnout.
 
@@ -96,7 +96,7 @@ Otázky, na které potřebuju reálnou odpověď, ne domněnku:
 **Navržené řešení (čeká na potvrzení):** logo v headeru/patičce zmenšit na výkon; JSON-LD `image` pole přesměrovat na hero fotku (až bude k dispozici) nebo minimálně nezmenšovat pod ~700px.
 
 ### P3.2 — `og:image` / `twitter:image`
-Chybí úplně (audit: Medium). Potřebuje hotový vizuál 1200×630. Buď dodá klient, nebo vygenerovat přes skill `seo-image-gen` (Gemini/nanobanana) — rozhodnutí na tobě.
+Chybí úplně (audit: Medium). Potřebuje hotový vizuál 1200×630. Buď dodá klient, nebo nechat vygenerovat (grafika nebo AI generátor) — rozhodnutí na tobě.
 
 ---
 
@@ -203,7 +203,7 @@ Z původního `ACTION-PLAN.md`, fáze 4:
 
 ## Fáze P9 — Collabim keyword loop (poslední krok podle tvého zadání)
 
-Až bude cluster postavený/schválený, projít stránku po stránce (hub + 5 spoke stránek) přes skill `seo-collabim-keyword-loop`: navrhnu kandidátní klíčová slova pro danou stránku, ty ověříš reálný search volume/obtížnost/trend v Collabimu, společně vybereme finální primary + secondary klíčová slova a zkontrolujeme kanibalizaci.
+Až bude cluster postavený/schválený, projít stránku po stránce (hub + 5 spoke stránek) iterativním Collabim keyword loopem: navrhnu kandidátní klíčová slova pro danou stránku, ty ověříš reálný search volume/obtížnost/trend v Collabimu, společně vybereme finální primary + secondary klíčová slova a zkontrolujeme kanibalizaci.
 
 **Poznámka k pořadí, ne rozhodnutí za tebe:** logicky by dávalo smysl pustit P9 ještě před psaním finálního textu spoke stránek (P6) — ať se nepíše 5× 1500 slov na klíčová slova, která se pak v Collabimu ukážou jako nízkoobjemová nebo horší varianta než čekaný synonym. Řadím to ale tak, jak jsi zadal (audit + cluster nejdřív, Collabim až pak) — pokud chceš prohodit pořadí (P9 před P6), stačí říct.
 

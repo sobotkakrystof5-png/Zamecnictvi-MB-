@@ -14,7 +14,7 @@ Protože jde o **jednu stránku** (scroll s kotvami, ne multi-page), odpadají c
 
 ## SEO Health Score: 70 / 100
 
-Skóre odráží **rozpracovaný, ještě nespuštěný web** — část kategorií (obsah, obrázky, GEO) je penalizována nálezy, které jsou přímým důsledkem toho, že projekt je podle `CLAUDE.md` záměrně ve fázi návrhu. To není finální hodnocení produktu, je to hodnocení aktuálního stavu buildu.
+Skóre odráží **rozpracovaný, ještě nespuštěný web** — část kategorií (obsah, obrázky, GEO) je penalizována nálezy, které jsou přímým důsledkem toho, že projekt je podle interního briefu záměrně ve fázi návrhu. To není finální hodnocení produktu, je to hodnocení aktuálního stavu buildu.
 
 | Kategorie | Váha | Skóre | Poznámka |
 |---|---|---|---|
@@ -51,7 +51,7 @@ Zbytek (galerijní responsive obrázky, og:image, schema pole vyžadující reá
 - `robots.txt` nic neblokuje, žádné omezení pro AI crawlery.
 - `font-display: swap`, `width`/`height` na obrázcích → CLS prakticky 0.
 - Žádný render-blocking JS, formulář má honeypot i GDPR souhlas.
-- Reálné fotky z galerie jsou už nahrané (63 fotek + peek náhledy) — obsahová stránka projektu pokročila dál, než by naznačovalo "jen placeholdery" v `CLAUDE.md`; jen technicky nejsou ještě optimalizované pro výkon.
+- Reálné fotky z galerie jsou už nahrané (63 fotek + peek náhledy) — obsahová stránka projektu pokročila dál, než by naznačovalo "jen placeholdery" v interním briefu; jen technicky nejsou ještě optimalizované pro výkon.
 
 ## Detailní nálezy podle kategorie
 
